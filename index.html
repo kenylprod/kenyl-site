@@ -66,8 +66,8 @@
     letter-spacing:0.02em;
   }
   .logo img{
-    height:46px; width:auto; display:block; object-fit:contain;
-    border-radius:12px;
+    height:46px; width:46px; display:block; object-fit:contain;
+    border-radius:12px; flex-shrink:0;
   }
   .logo span{ color:var(--accent); transition:color .3s ease; }
   .topnav{
@@ -274,8 +274,14 @@
     .topnav{
       width:100%;
       max-width:none;
-      justify-content:space-between;
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:8px 10px;
       padding-top:4px;
+    }
+    .topnav a{
+      text-align:center;
+      padding:4px 0;
     }
     .constellation{ position:relative; height:auto; inset:auto; }
     .hero-home{ padding-top:152px; justify-content:flex-start; }
@@ -298,7 +304,7 @@
   <div class="veil" id="veil"></div>
 
   <header class="topbar">
-    <a href="#home" class="logo"><img src="images/logo-kenyl.jpg" alt="Логотип KENYL"><span>KENYL</span></a>
+    <a href="#home" class="logo"><img src="images/logo-kenyl.jpg?v=2" alt="Логотип KENYL"><span>KENYL</span></a>
     <nav class="topnav" id="topnav">
       <a href="#event" data-route="event">Event</a>
       <a href="#records" data-route="records">Records</a>
