@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KENYL — креативная студия</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Manrope:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#121116;
+    --ink-soft:#1B1A20;
+    --ink-softer:#221F27;
+    --paper:#F2EFEA;
+    --muted:#A6A3AC;
+    --line: rgba(242,239,234,0.14);
+
+    --acc-brand:#FF3D8A;
+    --acc-event:#FFB347;
+    --acc-records:#8B5CF6;
+    --acc-product:#C6F135;
+    --acc-phoenix:#FF4E32;
+    --acc-academy:#34E4D0;
+    --acc-rent:#4F9DFF;
+    --acc-smm:#FF5FA2;
+    --acc-print:#FFD54A;
+
+    --accent: var(--acc-brand);
+
+    --font-display:'Unbounded', sans-serif;
+    --font-body:'Manrope', sans-serif;
+    --font-mono:'Space Mono', monospace;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-padding-top:120px;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:var(--font-body);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  h1,h2,h3{font-family:var(--font-display); margin:0; line-height:1.05;}
+  p{margin:0;}
+  button{font-family:inherit; cursor:pointer;}
+
+  ::selection{ background:var(--accent); color:var(--ink); }
+
+  /* ---------- Topbar ---------- */
+  .topbar{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:12px;
+    padding:18px clamp(20px,5vw,56px) 12px;
+    background:linear-gradient(to bottom, rgba(18,17,22,0.92), rgba(18,17,22,0));
+    backdrop-filter:blur(6px);
+  }
+  .logo{
+    display:flex; align-items:center; gap:10px;
+    font-family:var(--font-display); font-weight:900; font-size:1.05rem;
+    letter-spacing:0.02em;
+  }
+  .logo img{
+    height:46px; width:46px; display:block; object-fit:contain;
+    border-radius:12px; flex-shrink:0;
+  }
+  .logo span{ color:var(--accent); transition:color .3s ease; }
+  .topnav{
+    display:flex; gap:clamp(12px,2vw,22px);
+    overflow-x:auto; max-width:72vw;
+    font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.07em; text-transform:uppercase;
+    scrollbar-width:none;
+  }
+  .topnav::-webkit-scrollbar{display:none;}
+  .topnav a{ white-space:nowrap; color:var(--muted); padding-bottom:4px; border-bottom:1px solid transparent; transition:color .25s ease, border-color .25s ease; }
+  .topnav a:hover{ color:var(--paper); }
+  .topnav a.active{ color:var(--paper); border-bottom-color:var(--accent); }
+
+  /* ---------- Transition veil ---------- */
+  .veil{
+    position:fixed; inset:0; z-index:200; background:var(--acc-brand);
+    transform:scaleX(0); transform-origin:left center; opacity:1;
+    pointer-events:none;
+  }
+  .veil.run{ animation:veilSweep .6s ease forwards; }
+  @keyframes veilSweep{
+    0%{ transform:scaleX(0); transform-origin:left center; opacity:1; }
+    55%{ transform:scaleX(1); transform-origin:left center; opacity:1; }
+    56%{ transform:scaleX(1); transform-origin:right center; opacity:1; }
+    100%{ transform:scaleX(0); transform-origin:right center; opacity:1; }
+  }
+
+  /* ---------- Page container ---------- */
+  .page{ display:none; }
+  .page.active{ display:block; }
+
+  /* ================= HOME ================= */
+  .hero-home{
+    position:relative;
+    min-height:100vh;
+    padding:140px clamp(20px,5vw,56px) 60px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+  }
+  .constellation{
+    position:absolute; inset:0; z-index:0;
+  }
+  .constellation svg{ position:absolute; inset:0; width:100%; height:100%; }
+  .constellation svg line{ stroke-width:0.15; opacity:0.5; }
+
+  .k-core{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:64px; height:64px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #2a2831, var(--ink-soft));
+    border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:1.1rem; color:var(--acc-brand);
+    box-shadow:0 0 40px rgba(255,61,138,0.25);
+    animation:pulse 4s ease-in-out infinite;
+    z-index:2;
+  }
+  @keyframes pulse{
+    0%,100%{ box-shadow:0 0 30px rgba(255,61,138,0.18); }
+    50%{ box-shadow:0 0 55px rgba(255,61,138,0.38); }
+  }
+
+  .node{
+    position:absolute; transform:translate(-50%,-50%);
+    left:var(--x); top:var(--y);
+    width:122px; padding:12px 14px;
+    background:rgba(27,26,32,0.85);
+    border:1px solid var(--line);
+    border-radius:14px;
+    text-align:left;
+    backdrop-filter:blur(4px);
+    z-index:2;
+    transition:border-color .25s ease, transform .25s ease, background .25s ease;
+    animation:float 8s ease-in-out infinite;
+  }
+  .node:nth-of-type(1){ animation-duration:7.5s; }
+  .node:nth-of-type(2){ animation-duration:9s; animation-delay:-2s; }
+  .node:nth-of-type(3){ animation-duration:8.2s; animation-delay:-4s; }
+  .node:nth-of-type(4){ animation-duration:6.8s; animation-delay:-1s; }
+  .node:nth-of-type(5){ animation-duration:9.6s; animation-delay:-3s; }
+  .node:nth-of-type(6){ animation-duration:7.1s; animation-delay:-2.6s; }
+  .node:nth-of-type(7){ animation-duration:8.7s; animation-delay:-1.4s; }
+  .node:nth-of-type(8){ animation-duration:9.3s; animation-delay:-3.8s; }
+  @keyframes float{
+    0%,100%{ margin:0; }
+    50%{ margin-top:-10px; }
+  }
+  .node:hover{ border-color:var(--node-accent); background:var(--ink-softer); transform:translate(-50%,-50%) scale(1.05); }
+  .node .dot{ width:8px; height:8px; border-radius:50%; background:var(--node-accent); margin-bottom:7px; }
+  .node .name{ font-family:var(--font-display); font-weight:700; font-size:0.86rem; }
+  .node .desc{ font-family:var(--font-mono); font-size:0.62rem; color:var(--muted); margin-top:4px; display:block; }
+
+  .hero-text{ position:relative; z-index:3; max-width:760px; width:100%; }
+  .eyebrow{
+    font-family:var(--font-mono); font-size:0.75rem; letter-spacing:0.2em; text-transform:uppercase;
+    color:var(--acc-brand); margin-bottom:18px; display:block;
+  }
+  .wordmark{
+    font-size:clamp(3.2rem,11vw,8rem); font-weight:900; letter-spacing:-0.02em;
+  }
+  .tagline{
+    font-family:var(--font-display); font-weight:500; font-size:clamp(1.4rem,3.4vw,2.1rem);
+    color:var(--acc-brand); margin-top:14px; letter-spacing:0.01em;
+  }
+  .hero-sub{
+    font-size:1.02rem; color:var(--muted); max-width:520px; margin:22px auto 0;
+  }
+  .scroll-cue{
+    position:absolute; bottom:36px; left:50%; transform:translateX(-50%);
+    font-family:var(--font-mono); font-size:0.68rem; color:var(--muted); letter-spacing:0.15em;
+    text-transform:uppercase; z-index:3;
+  }
+
+  .about{
+    padding:90px clamp(20px,5vw,56px) 100px;
+    border-top:1px solid var(--line);
+    display:grid; grid-template-columns:1fr 1.4fr; gap:60px;
+    max-width:1200px; margin:0 auto;
+  }
+  .about h2{ font-size:clamp(1.6rem,3vw,2.3rem); font-weight:700; }
+  .about p{ color:var(--muted); font-size:1.02rem; max-width:520px; }
+  .about p + p{ margin-top:16px; }
+
+  footer.site-footer{
+    border-top:1px solid var(--line);
+    padding:56px clamp(20px,5vw,56px) 40px;
+  }
+  .footer-grid{
+    max-width:1200px; margin:0 auto;
+    display:flex; flex-wrap:wrap; gap:40px; justify-content:space-between;
+  }
+  .footer-block h3{ font-size:0.78rem; font-family:var(--font-mono); text-transform:uppercase; letter-spacing:0.14em; color:var(--muted); margin-bottom:14px; font-weight:400; }
+  .footer-links{ display:flex; flex-direction:column; gap:8px; }
+  .footer-links a{ color:var(--paper); font-size:0.95rem; }
+  .footer-links a:hover{ color:var(--accent); }
+  .footer-note{
+    max-width:1200px; margin:40px auto 0; padding-top:24px; border-top:1px solid var(--line);
+    font-family:var(--font-mono); font-size:0.72rem; color:var(--muted);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  }
+
+  /* ================= SUBPAGES ================= */
+  .sub-hero{
+    min-height:74vh; display:flex; flex-direction:column; justify-content:center;
+    padding:150px clamp(20px,5vw,56px) 70px;
+    position:relative; overflow:hidden;
+  }
+  .sub-hero::before{
+    content:''; position:absolute; top:-30%; right:-15%; width:60vw; height:60vw;
+    background:radial-gradient(circle, var(--accent) 0%, transparent 68%);
+    opacity:0.18; z-index:0; pointer-events:none;
+  }
+  .sub-hero > *{ position:relative; z-index:1; }
+  .sub-eyebrow{
+    font-family:var(--font-mono); font-size:0.78rem; letter-spacing:0.2em; text-transform:uppercase;
+    color:var(--accent); margin-bottom:20px; display:flex; align-items:center; gap:10px;
+  }
+  .sub-eyebrow::before{ content:''; width:26px; height:1px; background:var(--accent); display:inline-block; }
+  .sub-title{ font-size:clamp(2.1rem,6vw,4rem); font-weight:900; max-width:820px; letter-spacing:-0.01em; }
+  .sub-desc{ margin-top:24px; max-width:580px; color:var(--muted); font-size:1.05rem; }
+  .cta{
+    margin-top:36px; display:inline-flex; align-items:center; gap:10px;
+    background:var(--accent); color:var(--ink); font-family:var(--font-display); font-weight:700;
+    font-size:0.92rem; padding:15px 26px; border-radius:100px; border:none;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .cta:hover{ transform:translateY(-2px); box-shadow:0 10px 30px -8px var(--accent); }
+
+  .features{
+    padding:20px clamp(20px,5vw,56px) 100px;
+    max-width:1200px; margin:0 auto;
+    display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:18px; overflow:hidden;
+  }
+  .feature{
+    background:var(--ink-soft); padding:32px 28px;
+  }
+  .feature .tag{
+    font-family:var(--font-mono); font-size:0.68rem; color:var(--accent); letter-spacing:0.12em; text-transform:uppercase;
+  }
+  .feature h3{ margin-top:14px; font-size:1.1rem; font-weight:700; }
+  .feature p{ margin-top:10px; color:var(--muted); font-size:0.92rem; }
+
+  .sub-footer{
+    border-top:1px solid var(--line);
+    padding:50px clamp(20px,5vw,56px) 60px;
+    display:flex; flex-wrap:wrap; justify-content:space-between; gap:24px;
+    max-width:1200px; margin:0 auto;
+  }
+  .back-link{
+    font-family:var(--font-mono); font-size:0.78rem; color:var(--muted); letter-spacing:0.08em;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .back-link:hover{ color:var(--accent); }
+  .sibling-links{ display:flex; gap:18px; flex-wrap:wrap; font-family:var(--font-mono); font-size:0.76rem; max-width:640px; }
+  .sibling-links a{ color:var(--muted); }
+  .sibling-links a:hover{ color:var(--paper); }
+
+  @media (max-width:760px){
+    .topbar{
+      flex-direction:column;
+      align-items:flex-start;
+      padding:16px 20px 10px;
+    }
+    .topnav{
+      width:100%;
+      max-width:none;
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:8px 10px;
+      padding-top:4px;
+    }
+    .topnav a{
+      text-align:center;
+      padding:4px 0;
+    }
+    .constellation{ position:relative; height:auto; inset:auto; }
+    .hero-home{ padding-top:152px; justify-content:flex-start; }
+    .hero-text{ text-align:left; margin-bottom:24px; }
+    .k-core{ display:none; }
+    .constellation svg{ display:none; }
+    .node{
+      position:relative; left:auto !important; top:auto !important; transform:none !important;
+      width:100%; margin:0 0 12px; animation:none;
+    }
+    .node:hover{ transform:none !important; }
+    .node-list{ position:relative; z-index:3; display:flex; flex-direction:column; margin-top:0; }
+    .about{ grid-template-columns:1fr; }
+    .features{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="veil" id="veil"></div>
+
+  <header class="topbar">
+    <a href="#home" class="logo"><img src="images/logo-kenyl.jpg?v=2" alt="Логотип KENYL"><span>KENYL</span></a>
+    <nav class="topnav" id="topnav">
+      <a href="#event" data-route="event">Event</a>
+      <a href="#records" data-route="records">Records</a>
+      <a href="#product" data-route="product">Product</a>
+      <a href="#phoenix" data-route="phoenix">Phoenix</a>
+      <a href="#academy" data-route="academy">Academy</a>
+      <a href="#rent" data-route="rent">Rent</a>
+      <a href="#smm" data-route="smm">SMM</a>
+      <a href="#print" data-route="print">Print</a>
+    </nav>
+  </header>
+
+  <!-- ================= HOME ================= -->
+  <section class="page active" id="page-home">
+    <div class="hero-home">
+      <div class="constellation">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+          <line x1="50" y1="50" x2="80" y2="12" stroke="#FFB347"></line>
+          <line x1="50" y1="50" x2="14" y2="18" stroke="#8B5CF6"></line>
+          <line x1="50" y1="50" x2="92" y2="38" stroke="#4F9DFF"></line>
+          <line x1="50" y1="50" x2="6" y2="42" stroke="#FF4E32"></line>
+          <line x1="50" y1="50" x2="86" y2="66" stroke="#C6F135"></line>
+          <line x1="50" y1="50" x2="10" y2="70" stroke="#FF5FA2"></line>
+          <line x1="50" y1="50" x2="66" y2="88" stroke="#34E4D0"></line>
+          <line x1="50" y1="50" x2="30" y2="88" stroke="#FFD54A"></line>
+        </svg>
+        <div class="k-core">K</div>
+
+        <div class="node-list">
+          <a href="#event" class="node" style="--x:80%; --y:12%; --node-accent:#FFB347;">
+            <span class="dot"></span>
+            <span class="name">Event</span>
+            <span class="desc">мероприятия</span>
+          </a>
+          <a href="#records" class="node" style="--x:14%; --y:18%; --node-accent:#8B5CF6;">
+            <span class="dot"></span>
+            <span class="name">Records</span>
+            <span class="desc">звукозапись</span>
+          </a>
+          <a href="#rent" class="node" style="--x:92%; --y:38%; --node-accent:#4F9DFF;">
+            <span class="dot"></span>
+            <span class="name">Rent</span>
+            <span class="desc">аренда</span>
+          </a>
+          <a href="#phoenix" class="node" style="--x:6%; --y:42%; --node-accent:#FF4E32;">
+            <span class="dot"></span>
+            <span class="name">Phoenix</span>
+            <span class="desc">вокал</span>
+          </a>
+          <a href="#product" class="node" style="--x:86%; --y:66%; --node-accent:#C6F135;">
+            <span class="dot"></span>
+            <span class="name">Product</span>
+            <span class="desc">игры</span>
+          </a>
+          <a href="#smm" class="node" style="--x:10%; --y:70%; --node-accent:#FF5FA2;">
+            <span class="dot"></span>
+            <span class="name">SMM</span>
+            <span class="desc">продвижение</span>
+          </a>
+          <a href="#academy" class="node" style="--x:66%; --y:88%; --node-accent:#34E4D0;">
+            <span class="dot"></span>
+            <span class="name">Academy</span>
+            <span class="desc">школа ИИ</span>
+          </a>
+          <a href="#print" class="node" style="--x:30%; --y:88%; --node-accent:#FFD54A;">
+            <span class="dot"></span>
+            <span class="name">Print</span>
+            <span class="desc">полиграфия</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-text">
+        <span class="eyebrow">Креативная студия</span>
+        <h1 class="wordmark">KENYL</h1>
+        <p class="hero-sub">Мы не помещаемся в одно направление. Восемь команд, одна студия — каждая идея растёт в своё дело.</p>
+      </div>
+
+      <div class="scroll-cue">Направления ↓</div>
+    </div>
+
+    <div class="about">
+      <h2>Зачем вам KENYL?</h2>
+      <div>
+        <p>Запишите песню, подкаст или демо. Научитесь петь. Организуйте концерт, корпоратив или праздник — или просто закажите наших артистов на своё мероприятие. Добавьте интерактив: купите готовые музлото, квизы и викторины для ваших событий — или закажите у нас, и мы сделаем это за вас. Освойте нейросети и нужные программы, чтобы использовать их в работе. Запустите соцсети и продвигайте свой бизнес. Напечатайте афиши, визитки, мерч — что угодно. Снимите зал с оборудованием под своё событие.</p>
+        <p>Каждая задача — отдельное направление KENYL. Но для вас это одна команда и одно место.</p>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="footer-grid">
+        <div class="footer-block">
+          <h3>Направления</h3>
+          <div class="footer-links">
+            <a href="#event">Kenyl Event — проведение мероприятий</a>
+            <a href="#records">Kenyl Records — студия звукозаписи</a>
+            <a href="#product">Kenyl Product — продукция студии</a>
+            <a href="#phoenix">Kenyl Phoenix — вокальный кружок</a>
+            <a href="#academy">Kenyl Academy — школа ИИ</a>
+            <a href="#rent">Kenyl Rent — аренда зала и оборудования</a>
+            <a href="#smm">Kenyl SMM — продвижение в соцсетях</a>
+            <a href="#print">Kenyl Print — полиграфические услуги</a>
+          </div>
+        </div>
+        <div class="footer-block">
+          <h3>Контакты</h3>
+          <div class="footer-links">
+            <a href="mailto:kenylcontact@mail.ru">kenylcontact@mail.ru</a>
+            <a href="https://api.whatsapp.com/send?phone=79644281993" target="_blank" rel="noopener">WhatsApp: +7 964 428-19-93</a>
+            <span style="color:var(--muted);">г. Якутск, ул. Дзержинского 8/2</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-note">
+        <span>KENYL — креативная студия</span>
+      </div>
+    </footer>
+  </section>
+
+  <!-- ================= EVENT ================= -->
+  <section class="page" id="page-event">
+    <div class="sub-hero">
+      <span class="sub-eyebrow">Kenyl Event</span>
+      <h1 class="sub-title">Проведение мероприятий</h1>
+      <p class="sub-desc">Организуем и проводим яркие мероприятия любого формата: семейные праздники, юбилеи, дни рождения, корпоративы, выпускные, тематические вечеринки и развлекательные программы. Поющий тамада и профессиональный ведущий украсят ваш праздник, создадут тёплую атмосферу, подарят гостям яркие эмоции и незабываемые впечатления.</p>
+      <a href="https://api.whatsapp.com/send?phone=79644281993" target="_blank" rel="noopener" class="cta">Обсудить мероприятие</a>
+    </div>
+    <div class="features">
+      <div class="feature"><span class="tag">Формат</span><h3>Любой повод</h3><p>Дни рождения, юбилеи, корпоративы, выпускные и тематические вечеринки.</p></div>
+      <div class="feature"><span class="tag">Ведущий</span><h3>Поющий тамада</h3><p>Профессиональный ведущий создаёт тёплую атмосферу и держит гостей вовлечёнными.</p></div>
+      <div class="feature"><span class="tag">Результат</span><h3>Яркие эмоции</h3><p>Незабываемые впечатления для гостей любого возраста.</p></div>
+    </div>
+    <div class="sub-footer">
+      <a href="#home" class="back-link">← Вернуться в KENYL</a>
+      <div class="sibling-links">
+        <a href="#records">Records</a><a href="#product">Product</a><a href="#phoenix">Phoenix</a>
+        <a href="#academy">Academy</a><a href="#rent">Rent</a><a href="#smm">SMM</a><a href="#print">Print</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= RECORDS ================= -->
+  <section class="page" id="page-records">
+    <div class="sub-hero">
+      <span class="sub-eyebrow">Kenyl Records</span>
+      <h1 class="sub-title">Студия звукозаписи</h1>
+      <p class="sub-desc">Профессиональная студия звукозаписи для начинающих и опытных исполнителей. Запись вокала, сведение и мастеринг, создание аранжировок, запись рекламных роликов, озвучивание подкастов и аудиокниг. Поможем раскрыть ваш творческий потенциал и создадим качественный звук, готовый к публикации на любых площадках.</p>
+      <a href="https://api.whatsapp.com/send?phone=79644281993" target="_blank" rel="noopener" class="cta">Забронировать сессию</a>
+    </div>
+    <div class="features">
+      <div class="feature"><span class="tag">Запись</span><h3>Вокал и аранжировки</h3><p>Запись вокала, сведение, мастеринг и создание аранжировок под ваш материал.</p></div>
+      <div class="feature"><span class="tag">Контент</span><h3>Ролики и подкасты</h3><p>Запись рекламных роликов, озвучивание подкастов и аудиокниг.</p></div>
+      <div class="feature"><span class="tag">Результат</span><h3>Готово к публикации</h3><p>Качественный звук для любых площадок — от стриминга до эфира.</p></div>
+    </div>
+    <div class="sub-footer">
+      <a href="#home" class="back-link">← Вернуться в KENYL</a>
+      <div class="sibling-links">
+        <a href="#event">Event</a><a href="#product">Product</a><a href="#phoenix">Phoenix</a>
+        <a href="#academy">Academy</a><a href="#rent">Rent</a><a href="#smm">SMM</a><a href="#print">Print</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PRODUCT ================= -->
+  <section class="page" id="page-product">
+    <div class="sub-hero">
+      <span class="sub-eyebrow">Kenyl Product</span>
+      <h1 class="sub-title">Продукция студии</h1>
+      <p class="sub-desc">В продаже интерактивные игры с презентациями: музыкальное лото, квизы, викторины и другие развлечения для праздников, корпоративов, семейных вечеров и мероприятий.</p>
+      <a href="https://api.whatsapp.com/send?phone=79644281993" target="_blank" rel="noopener" class="cta">Заказать игру</a>
+    </div>
+    <div class="features">
+      <div class="feature"><span class="tag">Формат</span><h3>Игры с презентацией</h3><p>Музыкальное лото, квизы, викторины — с готовой презентацией для показа.</p></div>
+      <div class="feature"><span class="tag">Применение</span><h3>Для любого события</h3><p>Праздники, корпоративы, семейные вечера и тематические мероприятия.</p></div>
+      <div class="feature"><span class="tag">Доступ</span><h3>Готовые к покупке</h3><p>Игры уже в продаже — не нужно ждать разработки под заказ.</p></div>
+    </div>
+    <div class="sub-footer">
+      <a href="#home" class="back-link">← Вернуться в KENYL</a>
+      <div class="sibling-links">
+        <a href="#event">Event</a><a href="#records">Records</a><a href="#phoenix">Phoenix</a>
+        <a href="#academy">Academy</a><a href="#rent">Rent</a><a href="#smm">SMM</a><a href="#print">Print</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PHOENIX ================= -->
+  <section class="page" id="page-phoenix">
+    <div class="sub-hero">
+      <span class="sub-eyebrow">Kenyl Phoenix</span>
+      <h1 class="sub-title">Вокальный кружок</h1>
+      <p class="sub-desc">Вокальный кружок для детей и взрослых, а также для начинающих и опытных исполнителей. Обучение вокалу, развитие музыкального слуха, постановка голоса, подготовка к концертам, конкурсам и студийной записи в дружеской и творческой атмосфере.</p>
+      <a href="https://api.whatsapp.com/send?phone=79644281993" target="_blank" rel="noopener" class="cta">Записаться на пробное занятие</a>
+    </div>
+    <div class="features">
+      <div class="feature"><span class="tag">Формат</span><h3>Дети и взрослые</h3><p>Занятия для любого возраста и уровня — с нуля или для роста мастерства.</p></div>
+      <div class="feature"><span class="tag">Развитие</span><h3>Слух и голос</h3><p>Развитие музыкального слуха и постановка голоса в удобном темпе.</p></div>
+      <div class="feature"><span class="tag">Практика</span><h3>Концерты и конкурсы</h3><p>Готовим к выступлениям, конкурсам и студийной записи.</p></div>
+    </div>
+    <div class="sub-footer">
+      <a href="#home" class="back-link">← Вернуться в KENYL</a>
+      <div class="sibling-links">
+        <a href="#event">Event</a><a href="#records">Records</a><a href="#product">Product</a>
+        <a href="#academy">Academy</a><a href="#rent">Rent</a><a href="#smm">SMM</a><a href="#print">Print</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ACADEMY ================= -->
+  <section class="page" id="page-academy">
+    <div class="sub-hero">
+      <span class="sub-eyebrow">Kenyl Academy</span>
+      <h1 class="sub-title">Школа ИИ</h1>
+      <p class="sub-desc">Обучаем работе с компьютером, современными программами и инструментами искусственного интеллекта. Курсы для молодёжи и людей старшего поколения помогут уверенно пользоваться цифровыми технологиями в работе, творчестве и повседневной жизни.</p>
+      <a href="https://api.whatsapp.com/send?phone=79644281993" target="_blank" rel="noopener" class="cta">Выбрать курс</a>
+    </div>
+    <div class="features">
+      <div class="feature"><span class="tag">Основы</span><h3>Компьютер и программы</h3><p>Обучаем уверенной работе с компьютером и современными программами.</p></div>
+      <div class="feature"><span class="tag">Инструменты</span><h3>Искусственный интеллект</h3><p>Практика с инструментами ИИ для работы, творчества и жизни.</p></div>
+      <div class="feature"><span class="tag">Аудитория</span><h3>Для любого возраста</h3><p>Курсы подходят и молодёжи, и людям старшего поколения.</p></div>
+    </div>
+    <div class="sub-footer">
+      <a href="#home" class="back-link">← Вернуться в KENYL</a>
+      <div class="sibling-links">
+        <a href="#event">Event</a><a href="#records">Records</a><a href="#product">Product</a>
+        <a href="#phoenix">Phoenix</a><a href="#rent">Rent</a><a href="#smm">SMM</a><a href="#print">Print</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= RENT ================= -->
+  <section class="page" id="page-rent">
+    <div class="sub-hero">
+      <span class="sub-eyebrow">Kenyl Rent</span>
+      <h1 class="sub-title">Аренда зала и оборудования</h1>
+      <p class="sub-desc">Аренда репетиционного зала и профессионального звукового оборудования для музыкантов, вокалистов, ведущих и организаторов мероприятий. Пространство для репетиций, занятий, записи, а также оборудование для концертов, праздников и других событий.</p>
+      <a href="https://api.whatsapp.com/send?phone=79644281993" target="_blank" rel="noopener" class="cta">Забронировать зал</a>
+    </div>
+    <div class="features">
+      <div class="feature"><span class="tag">Пространство</span><h3>Репетиционный зал</h3><p>Оборудованное помещение для репетиций, занятий и записи.</p></div>
+      <div class="feature"><span class="tag">Техника</span><h3>Звуковое оборудование</h3><p>Профессиональный звук для концертов, праздников и мероприятий.</p></div>
+      <div class="feature"><span class="tag">Формат</span><h3>Почасовая аренда</h3><p>Берите зал или технику ровно на то время, что нужно.</p></div>
+    </div>
+    <div class="sub-footer">
+      <a href="#home" class="back-link">← Вернуться в KENYL</a>
+      <div class="sibling-links">
+        <a href="#event">Event</a><a href="#records">Records</a><a href="#product">Product</a>
+        <a href="#phoenix">Phoenix</a><a href="#academy">Academy</a><a href="#smm">SMM</a><a href="#print">Print</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SMM ================= -->
+  <section class="page" id="page-smm">
+    <div class="sub-hero">
+      <span class="sub-eyebrow">Kenyl SMM</span>
+      <h1 class="sub-title">Продвижение в социальных сетях</h1>
+      <p class="sub-desc">Продвижение бизнеса, брендов и личных проектов в социальных сетях. Создание контента, дизайн, фото- и видеосъёмка, монтаж, ведение аккаунтов, настройка рекламы и разработка стратегии продвижения.</p>
+      <a href="https://api.whatsapp.com/send?phone=79644281993" target="_blank" rel="noopener" class="cta">Обсудить продвижение</a>
+    </div>
+    <div class="features">
+      <div class="feature"><span class="tag">Контент</span><h3>Съёмка и монтаж</h3><p>Фото- и видеосъёмка, дизайн и монтаж под ваш формат.</p></div>
+      <div class="feature"><span class="tag">Ведение</span><h3>Аккаунты и реклама</h3><p>Ведём соцсети и настраиваем рекламу под задачи бизнеса.</p></div>
+      <div class="feature"><span class="tag">План</span><h3>Стратегия продвижения</h3><p>Выстраиваем понятный путь роста, а не разовые публикации.</p></div>
+    </div>
+    <div class="sub-footer">
+      <a href="#home" class="back-link">← Вернуться в KENYL</a>
+      <div class="sibling-links">
+        <a href="#event">Event</a><a href="#records">Records</a><a href="#product">Product</a>
+        <a href="#phoenix">Phoenix</a><a href="#academy">Academy</a><a href="#rent">Rent</a><a href="#print">Print</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PRINT ================= -->
+  <section class="page" id="page-print">
+    <div class="sub-hero">
+      <span class="sub-eyebrow">Kenyl Print</span>
+      <h1 class="sub-title">Полиграфические услуги</h1>
+      <p class="sub-desc">Полиграфические и фотоуслуги для бизнеса и частных клиентов. Печать фотографий, баннеров, афиш, листовок, визиток, сертификатов, грамот, наклеек и другой рекламной продукции. Качественно, быстро и по доступным ценам.</p>
+      <a href="https://api.whatsapp.com/send?phone=79644281993" target="_blank" rel="noopener" class="cta">Заказать печать</a>
+    </div>
+    <div class="features">
+      <div class="feature"><span class="tag">Печать</span><h3>Фото и баннеры</h3><p>Печать фотографий, баннеров, афиш и другой крупноформатной продукции.</p></div>
+      <div class="feature"><span class="tag">Полиграфия</span><h3>Визитки и сертификаты</h3><p>Листовки, визитки, сертификаты, грамоты и наклейки.</p></div>
+      <div class="feature"><span class="tag">Условия</span><h3>Быстро и доступно</h3><p>Качественная печать без переплаты и долгого ожидания.</p></div>
+    </div>
+    <div class="sub-footer">
+      <a href="#home" class="back-link">← Вернуться в KENYL</a>
+      <div class="sibling-links">
+        <a href="#event">Event</a><a href="#records">Records</a><a href="#product">Product</a>
+        <a href="#phoenix">Phoenix</a><a href="#academy">Academy</a><a href="#rent">Rent</a><a href="#smm">SMM</a>
+      </div>
+    </div>
+  </section>
+
+<script>
+  const ACCENTS = {
+    home: '#FF3D8A',
+    event: '#FFB347',
+    records: '#8B5CF6',
+    product: '#C6F135',
+    phoenix: '#FF4E32',
+    academy: '#34E4D0',
+    rent: '#4F9DFF',
+    smm: '#FF5FA2',
+    print: '#FFD54A'
+  };
+  const ROUTES = Object.keys(ACCENTS);
+  const veil = document.getElementById('veil');
+  const root = document.documentElement;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function getRoute(){
+    const h = location.hash.replace('#','');
+    return ROUTES.includes(h) ? h : 'home';
+  }
+
+  function applyPage(route){
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + route).classList.add('active');
+    document.querySelectorAll('.topnav a').forEach(a => {
+      a.classList.toggle('active', a.dataset.route === route);
+    });
+    root.style.setProperty('--accent', ACCENTS[route]);
+    window.scrollTo(0,0);
+  }
+
+  function navigate(){
+    const route = getRoute();
+    if (reduceMotion){
+      applyPage(route);
+      return;
+    }
+    veil.style.background = ACCENTS[route];
+    veil.classList.remove('run');
+    void veil.offsetWidth;
+    veil.classList.add('run');
+    setTimeout(() => applyPage(route), 330);
+  }
+
+  window.addEventListener('hashchange', navigate);
+  document.addEventListener('DOMContentLoaded', () => {
+    applyPage(getRoute());
+  });
+</script>
+
+</body>
+</html>
