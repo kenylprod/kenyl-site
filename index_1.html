@@ -267,20 +267,28 @@
 
   @media (max-width:760px){
     .topbar{
-      flex-direction:row;
+      flex-direction:column;
       align-items:center;
-      padding:12px 16px 8px;
-      gap:8px;
+      padding:18px 16px 8px;
+      gap:6px;
+      background:linear-gradient(to bottom, rgba(18,17,22,0.95), rgba(18,17,22,0.7));
+    }
+    .logo{
+      justify-content:center;
+      flex-direction:column;
+      gap:4px;
+      text-align:center;
     }
     .logo img{
-      height:36px;
-      width:36px;
+      height:40px;
+      width:40px;
     }
     .logo span{
-      font-size:0.85rem;
+      font-size:1rem;
+      letter-spacing:0.04em;
     }
     .topnav{
-      width:auto;
+      width:100%;
       max-width:none;
       display:flex;
       gap:6px;
@@ -294,7 +302,7 @@
       letter-spacing:0.05em;
     }
     .constellation{ position:relative; height:auto; inset:auto; order:1; }
-    .hero-home{ padding-top:128px; justify-content:flex-start; display:flex; flex-direction:column; }
+    .hero-home{ padding-top:110px; justify-content:flex-start; display:flex; flex-direction:column; }
     .hero-text{ text-align:center; margin-bottom:12px; order:-1; padding:0 12px; }
     .eyebrow{ font-size:0.72rem; margin-bottom:8px; }
     .wordmark{ font-size:clamp(2.5rem,10vw,4rem); }
