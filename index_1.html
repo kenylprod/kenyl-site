@@ -274,26 +274,26 @@
     .topnav{
       width:100%;
       max-width:none;
-      display:grid;
-      grid-template-columns:repeat(4, minmax(0, 1fr));
-      gap:8px 10px;
+      display:flex;
+      gap:8px;
+      overflow-x:auto;
       padding-top:4px;
     }
     .topnav a{
-      text-align:center;
+      white-space:nowrap;
       padding:4px 0;
     }
-    .constellation{ position:relative; height:auto; inset:auto; }
-    .hero-home{ padding-top:152px; justify-content:flex-start; }
-    .hero-text{ text-align:left; margin-bottom:24px; }
+    .constellation{ position:relative; height:auto; inset:auto; order:1; }
+    .hero-home{ padding-top:152px; justify-content:flex-start; display:flex; flex-direction:column; }
+    .hero-text{ text-align:left; margin-bottom:0; order:-1; }
     .k-core{ display:none; }
     .constellation svg{ display:none; }
     .node{
       position:relative; left:auto !important; top:auto !important; transform:none !important;
-      width:100%; margin:0 0 12px; animation:none;
+      width:100%; margin:0; animation:none;
     }
     .node:hover{ transform:none !important; }
-    .node-list{ position:relative; z-index:3; display:flex; flex-direction:column; margin-top:0; }
+    .node-list{ position:relative; z-index:3; display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; margin-top:24px; }
     .about{ grid-template-columns:1fr; }
     .features{ grid-template-columns:1fr; }
   }
