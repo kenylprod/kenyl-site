@@ -59,8 +59,13 @@
     backdrop-filter:blur(6px);
   }
   .logo{
+    display:flex; align-items:center; gap:10px;
     font-family:var(--font-display); font-weight:900; font-size:1.05rem;
     letter-spacing:0.02em;
+  }
+  .logo img{
+    height:46px; width:auto; display:block; object-fit:contain;
+    border-radius:12px;
   }
   .logo span{ color:var(--accent); transition:color .3s ease; }
   .topnav{
@@ -279,7 +284,7 @@
   <div class="veil" id="veil"></div>
 
   <header class="topbar">
-    <a href="#home" class="logo">KENYL<span>.</span></a>
+    <a href="#home" class="logo"><img src="images/logo-kenyl.jpg" alt="Логотип KENYL"><span>KENYL</span></a>
     <nav class="topnav" id="topnav">
       <a href="#event" data-route="event">Event</a>
       <a href="#records" data-route="records">Records</a>
@@ -363,10 +368,10 @@
     </div>
 
     <div class="about">
-      <h2>О студии</h2>
+      <h2>Зачем вам KENYL?</h2>
       <div>
-        <p>KENYL — это пространство, где творческая идея не обязана выбирать одну форму. Сегодня это трек, завтра — концерт, послезавтра — курс или игра.</p>
-        <p>Каждое направление студии самостоятельно и живёт по своим правилам, но все они держатся на одном — свободе делать так, как считаешь верным.</p>
+        <p>Запишите песню, подкаст или демо. Научитесь петь. Организуйте концерт, корпоратив или праздник — или просто закажите наших артистов на своё мероприятие. Добавьте интерактив: купите готовые музлото, квизы и викторины для ваших событий — или закажите у нас, и мы сделаем это за вас. Освойте нейросети и нужные программы, чтобы использовать их в работе. Запустите соцсети и продвигайте свой бизнес. Напечатайте афиши, визитки, мерч — что угодно. Снимите зал с оборудованием под своё событие.</p>
+        <p>Каждая задача — отдельное направление KENYL. Но для вас это одна команда и одно место.</p>
       </div>
     </div>
 
@@ -388,9 +393,9 @@
         <div class="footer-block">
           <h3>Контакты</h3>
           <div class="footer-links">
-            <a href="mailto:hello@kenyl.studio">hello@kenyl.studio</a>
-            <a href="#">Telegram</a>
-            <a href="#">Instagram</a>
+            <a href="mailto:kenylcontact@mail.ru">kenylcontact@mail.ru</a>
+            <a href="https://wa.me/89644281993" target="_blank" rel="noopener">WhatsApp: +7 964 428-19-93</a>
+            <span style="color:var(--muted);">г. Якутск, ул. Дзержинского 8/2</span>
           </div>
         </div>
       </div>
@@ -407,7 +412,7 @@
       <span class="sub-eyebrow">Kenyl Event</span>
       <h1 class="sub-title">Проведение мероприятий</h1>
       <p class="sub-desc">Организуем и проводим яркие мероприятия любого формата: семейные праздники, юбилеи, дни рождения, корпоративы, выпускные, тематические вечеринки и развлекательные программы. Поющий тамада и профессиональный ведущий украсят ваш праздник, создадут тёплую атмосферу, подарят гостям яркие эмоции и незабываемые впечатления.</p>
-      <a href="#" class="cta">Обсудить мероприятие</a>
+      <a href="https://wa.me/89644281993" target="_blank" rel="noopener" class="cta">Обсудить мероприятие</a>
     </div>
     <div class="features">
       <div class="feature"><span class="tag">Формат</span><h3>Любой повод</h3><p>Дни рождения, юбилеи, корпоративы, выпускные и тематические вечеринки.</p></div>
@@ -429,7 +434,7 @@
       <span class="sub-eyebrow">Kenyl Records</span>
       <h1 class="sub-title">Студия звукозаписи</h1>
       <p class="sub-desc">Профессиональная студия звукозаписи для начинающих и опытных исполнителей. Запись вокала, сведение и мастеринг, создание аранжировок, запись рекламных роликов, озвучивание подкастов и аудиокниг. Поможем раскрыть ваш творческий потенциал и создадим качественный звук, готовый к публикации на любых площадках.</p>
-      <a href="#" class="cta">Забронировать сессию</a>
+      <a href="https://wa.me/89644281993" target="_blank" rel="noopener" class="cta">Забронировать сессию</a>
     </div>
     <div class="features">
       <div class="feature"><span class="tag">Запись</span><h3>Вокал и аранжировки</h3><p>Запись вокала, сведение, мастеринг и создание аранжировок под ваш материал.</p></div>
@@ -451,7 +456,7 @@
       <span class="sub-eyebrow">Kenyl Product</span>
       <h1 class="sub-title">Продукция студии</h1>
       <p class="sub-desc">В продаже интерактивные игры с презентациями: музыкальное лото, квизы, викторины и другие развлечения для праздников, корпоративов, семейных вечеров и мероприятий.</p>
-      <a href="#" class="cta">Заказать игру</a>
+      <a href="https://wa.me/89644281993" target="_blank" rel="noopener" class="cta">Заказать игру</a>
     </div>
     <div class="features">
       <div class="feature"><span class="tag">Формат</span><h3>Игры с презентацией</h3><p>Музыкальное лото, квизы, викторины — с готовой презентацией для показа.</p></div>
@@ -473,7 +478,7 @@
       <span class="sub-eyebrow">Kenyl Phoenix</span>
       <h1 class="sub-title">Вокальный кружок</h1>
       <p class="sub-desc">Вокальный кружок для детей и взрослых, а также для начинающих и опытных исполнителей. Обучение вокалу, развитие музыкального слуха, постановка голоса, подготовка к концертам, конкурсам и студийной записи в дружеской и творческой атмосфере.</p>
-      <a href="#" class="cta">Записаться на пробное занятие</a>
+      <a href="https://wa.me/89644281993" target="_blank" rel="noopener" class="cta">Записаться на пробное занятие</a>
     </div>
     <div class="features">
       <div class="feature"><span class="tag">Формат</span><h3>Дети и взрослые</h3><p>Занятия для любого возраста и уровня — с нуля или для роста мастерства.</p></div>
@@ -495,7 +500,7 @@
       <span class="sub-eyebrow">Kenyl Academy</span>
       <h1 class="sub-title">Школа ИИ</h1>
       <p class="sub-desc">Обучаем работе с компьютером, современными программами и инструментами искусственного интеллекта. Курсы для молодёжи и людей старшего поколения помогут уверенно пользоваться цифровыми технологиями в работе, творчестве и повседневной жизни.</p>
-      <a href="#" class="cta">Выбрать курс</a>
+      <a href="https://wa.me/89644281993" target="_blank" rel="noopener" class="cta">Выбрать курс</a>
     </div>
     <div class="features">
       <div class="feature"><span class="tag">Основы</span><h3>Компьютер и программы</h3><p>Обучаем уверенной работе с компьютером и современными программами.</p></div>
@@ -517,7 +522,7 @@
       <span class="sub-eyebrow">Kenyl Rent</span>
       <h1 class="sub-title">Аренда зала и оборудования</h1>
       <p class="sub-desc">Аренда репетиционного зала и профессионального звукового оборудования для музыкантов, вокалистов, ведущих и организаторов мероприятий. Пространство для репетиций, занятий, записи, а также оборудование для концертов, праздников и других событий.</p>
-      <a href="#" class="cta">Забронировать зал</a>
+      <a href="https://wa.me/89644281993" target="_blank" rel="noopener" class="cta">Забронировать зал</a>
     </div>
     <div class="features">
       <div class="feature"><span class="tag">Пространство</span><h3>Репетиционный зал</h3><p>Оборудованное помещение для репетиций, занятий и записи.</p></div>
@@ -539,7 +544,7 @@
       <span class="sub-eyebrow">Kenyl SMM</span>
       <h1 class="sub-title">Продвижение в социальных сетях</h1>
       <p class="sub-desc">Продвижение бизнеса, брендов и личных проектов в социальных сетях. Создание контента, дизайн, фото- и видеосъёмка, монтаж, ведение аккаунтов, настройка рекламы и разработка стратегии продвижения.</p>
-      <a href="#" class="cta">Обсудить продвижение</a>
+      <a href="https://wa.me/89644281993" target="_blank" rel="noopener" class="cta">Обсудить продвижение</a>
     </div>
     <div class="features">
       <div class="feature"><span class="tag">Контент</span><h3>Съёмка и монтаж</h3><p>Фото- и видеосъёмка, дизайн и монтаж под ваш формат.</p></div>
@@ -561,7 +566,7 @@
       <span class="sub-eyebrow">Kenyl Print</span>
       <h1 class="sub-title">Полиграфические услуги</h1>
       <p class="sub-desc">Полиграфические и фотоуслуги для бизнеса и частных клиентов. Печать фотографий, баннеров, афиш, листовок, визиток, сертификатов, грамот, наклеек и другой рекламной продукции. Качественно, быстро и по доступным ценам.</p>
-      <a href="#" class="cta">Заказать печать</a>
+      <a href="https://wa.me/89644281993" target="_blank" rel="noopener" class="cta">Заказать печать</a>
     </div>
     <div class="features">
       <div class="feature"><span class="tag">Печать</span><h3>Фото и баннеры</h3><p>Печать фотографий, баннеров, афиш и другой крупноформатной продукции.</p></div>
