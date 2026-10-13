@@ -26,6 +26,7 @@
     --acc-smm:#FF5FA2;
     --acc-print:#FFD54A;
     --acc-voice:#4CC9F0;
+    --acc-holiday:#F5A65B;
 
     --accent: var(--acc-brand);
 
@@ -152,6 +153,7 @@
   .node:nth-of-type(7){ animation-duration:8.7s; animation-delay:-1.4s; }
   .node:nth-of-type(8){ animation-duration:9.3s; animation-delay:-3.8s; }
   .node:nth-of-type(9){ animation-duration:8.4s; animation-delay:-2.2s; }
+  .node:nth-of-type(10){ animation-duration:7.8s; animation-delay:-1.8s; }
   @keyframes float{
     0%,100%{ margin:0; }
     50%{ margin-top:-10px; }
@@ -387,6 +389,7 @@
       <a href="#smm" data-route="smm">SMM</a>
       <a href="#print" data-route="print">Print</a>
       <a href="#voice" data-route="voice">Voice</a>
+      <a href="#holiday" data-route="holiday">Holiday</a>
     </nav>
   </header>
 
@@ -404,6 +407,7 @@
           <line x1="50" y1="50" x2="66" y2="88" stroke="#34E4D0"></line>
           <line x1="50" y1="50" x2="30" y2="88" stroke="#FFD54A"></line>
           <line x1="50" y1="50" x2="50" y2="84" stroke="#4CC9F0"></line>
+          <line x1="50" y1="50" x2="50" y2="28" stroke="#F5A65B"></line>
         </svg>
         <div class="k-core">K</div>
 
@@ -453,13 +457,18 @@
             <span class="name">Voice</span>
             <span class="desc">караоке-зал</span>
           </a>
+          <a href="#holiday" class="node" style="--x:50%; --y:28%; --node-accent:#F5A65B;">
+            <span class="dot"></span>
+            <span class="name">Holiday</span>
+            <span class="desc">студия праздников</span>
+          </a>
         </div>
       </div>
 
       <div class="hero-text">
         <span class="eyebrow">Креативная студия</span>
         <h1 class="wordmark">KENYL</h1>
-        <p class="hero-sub">Мы не помещаемся в одно направление. Девять команд, одна студия — каждая идея растёт в своё дело.</p>
+        <p class="hero-sub">Мы не помещаемся в одно направление. Десять команд, одна студия — каждая идея растёт в своё дело.</p>
       </div>
 
       
@@ -468,7 +477,7 @@
     <div class="about">
       <h2>Зачем вам KENYL?</h2>
       <div>
-        <p>Запишите песню, подкаст или демо. Научитесь петь или приходите в караоке-зал. Организуйте концерт, корпоратив или праздник — или просто закажите наших артистов на своё мероприятие. Добавьте интерактив: купите готовые музлото, квизы и викторины для ваших событий — или закажите у нас, и мы сделаем это за вас. Освойте нейросети и нужные программы, чтобы использовать их в работе. Запустите соцсети и продвигайте свой бизнес. Напечатайте афиши, визитки, мерч — что угодно. Снимите зал с оборудованием под своё событие.</p>
+        <p>Запишите песню, подкаст или демо. Научитесь петь или приходите в караоке-зал. Проведите день рождения, юбилей или семейный праздник в студии KENYL. Организуйте концерт, корпоратив или праздник — или просто закажите наших артистов на своё мероприятие. Добавьте интерактив: купите готовые музлото, квизы и викторины для ваших событий — или закажите у нас, и мы сделаем это за вас. Освойте нейросети и нужные программы, чтобы использовать их в работе. Запустите соцсети и продвигайте свой бизнес. Напечатайте афиши, визитки, мерч — что угодно. Снимите зал с оборудованием под своё событие.</p>
         <p>Каждая задача — отдельное направление KENYL. Но для вас это одна команда и одно место.</p>
       </div>
     </div>
@@ -487,6 +496,7 @@
             <a href="#smm">Kenyl SMM — продвижение брендов</a>
             <a href="#print">Kenyl Print — дизайн и распечатка</a>
             <a href="#voice">Kenyl Voice — караоке-зал</a>
+            <a href="#holiday">Kenyl Holiday — студия праздников</a>
           </div>
         </div>
         <div class="footer-block">
@@ -759,6 +769,28 @@
     </div>
   </section>
 
+  <!-- ================= HOLIDAY ================= -->
+  <section class="page" id="page-holiday">
+    <div class="sub-hero">
+      <span class="sub-eyebrow">Kenyl Holiday</span>
+      <h1 class="sub-title">Студия праздников</h1>
+      <p class="sub-desc">Проведите в KENYL день рождения, юбилей, семейное торжество или другой особенный день. Напишите нам, чтобы обсудить дату, формат праздника и условия.</p>
+      <a href="https://api.whatsapp.com/send?phone=79644281993" target="_blank" rel="noopener" class="cta">Обсудить праздник</a>
+    </div>
+    <div class="features">
+      <div class="feature"><span class="tag">Повод</span><h3>Дни рождения и юбилеи</h3><p>Соберите близких и отметьте важную дату в студии KENYL.</p></div>
+      <div class="feature"><span class="tag">Встреча</span><h3>Семейные торжества</h3><p>Проведите семейный праздник или встречу в своём кругу.</p></div>
+      <div class="feature"><span class="tag">Планирование</span><h3>Дата и формат</h3><p>Свяжитесь с нами, чтобы обсудить свободную дату и условия.</p></div>
+    </div>
+    <div class="sub-footer">
+      <a href="#home" class="back-link">← Вернуться в KENYL</a>
+      <div class="sibling-links">
+        <a href="#event">Event</a><a href="#records">Records</a><a href="#product">Product</a>
+        <a href="#phoenix">Phoenix</a><a href="#academy">Academy</a><a href="#rent">Rent</a><a href="#smm">SMM</a><a href="#print">Print</a><a href="#voice">Voice</a>
+      </div>
+    </div>
+  </section>
+
 <script>
   const ACCENTS = {
     home: '#FF3D8A',
@@ -770,7 +802,8 @@
     rent: '#4F9DFF',
     smm: '#FF5FA2',
     print: '#FFD54A',
-    voice: '#4CC9F0'
+    voice: '#4CC9F0',
+    holiday: '#F5A65B'
   };
   const ROUTES = Object.keys(ACCENTS);
   const veil = document.getElementById('veil');
