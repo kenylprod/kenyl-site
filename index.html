@@ -25,6 +25,7 @@
     --acc-rent:#4F9DFF;
     --acc-smm:#FF5FA2;
     --acc-print:#FFD54A;
+    --acc-voice:#4CC9F0;
 
     --accent: var(--acc-brand);
 
@@ -150,6 +151,7 @@
   .node:nth-of-type(6){ animation-duration:7.1s; animation-delay:-2.6s; }
   .node:nth-of-type(7){ animation-duration:8.7s; animation-delay:-1.4s; }
   .node:nth-of-type(8){ animation-duration:9.3s; animation-delay:-3.8s; }
+  .node:nth-of-type(9){ animation-duration:8.4s; animation-delay:-2.2s; }
   @keyframes float{
     0%,100%{ margin:0; }
     50%{ margin-top:-10px; }
@@ -250,6 +252,48 @@
   .feature h3{ margin-top:14px; font-size:1.1rem; font-weight:700; }
   .feature p{ margin-top:10px; color:var(--muted); font-size:0.92rem; }
 
+  .product-hero{ min-height:0; padding-bottom:36px; }
+  .product-catalog{
+    max-width:1200px; margin:0 auto; padding:0 clamp(20px,5vw,56px) 100px;
+    display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px;
+  }
+  .product-card{
+    min-width:0; background:var(--ink-soft); border:1px solid var(--line);
+    border-radius:8px; overflow:hidden; transition:border-color .25s ease;
+  }
+  .product-card:hover,.product-card[open]{ border-color:var(--accent); }
+  .product-card[open]{ grid-column:1 / -1; }
+  .product-card summary{ cursor:pointer; list-style:none; }
+  .product-card summary::-webkit-details-marker{ display:none; }
+  .product-card summary:focus-visible{ outline:2px solid var(--accent); outline-offset:-3px; }
+  .product-cover{ width:100%; aspect-ratio:16/9; object-fit:cover; background:var(--ink-softer); }
+  .product-card-copy{ padding:22px 24px 24px; }
+  .product-card-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:18px; }
+  .product-label{ font-family:var(--font-mono); font-size:0.68rem; color:var(--accent); text-transform:uppercase; }
+  .product-card h3{ margin-top:8px; font-family:var(--font-display); font-size:1.1rem; line-height:1.35; }
+  .product-song-count{ display:block; margin-top:7px; color:var(--muted); font-family:var(--font-mono); font-size:0.68rem; line-height:1.5; }
+  .product-price{ display:flex; flex-direction:column; align-items:flex-end; flex-shrink:0; }
+  .product-price strong{ color:var(--accent); font-family:var(--font-display); font-size:1.12rem; white-space:nowrap; }
+  .product-price del{ color:var(--muted); font-size:0.82rem; }
+  .product-expand{ margin-top:18px; display:flex; align-items:center; justify-content:space-between; gap:12px; color:var(--muted); font-size:0.88rem; }
+  .product-expand-close{ display:none; }
+  .product-card[open] .product-expand-open{ display:none; }
+  .product-card[open] .product-expand-close{ display:inline; }
+  .product-expand-icon{ width:28px; height:28px; display:grid; place-items:center; border:1px solid var(--line); border-radius:50%; color:var(--paper); font-size:1.2rem; transition:transform .2s ease; }
+  .product-card[open] .product-expand-icon{ transform:rotate(45deg); }
+  .product-detail{ display:grid; grid-template-columns:minmax(0,0.85fr) minmax(0,1.15fr); gap:30px; padding:28px 24px 30px; border-top:1px solid var(--line); }
+  .product-description{ color:var(--muted); font-size:0.96rem; }
+  .product-facts{ display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; }
+  .product-facts span{ padding:7px 10px; border:1px solid var(--line); border-radius:4px; color:var(--paper); font-size:0.78rem; }
+  .product-options{ margin-top:22px; color:var(--muted); font-size:0.9rem; }
+  .product-options li + li{ margin-top:7px; }
+  .product-order{ margin-top:24px; }
+  .product-order .cta{ margin-top:0; }
+  .product-gallery{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; align-content:start; }
+  .product-gallery figure{ min-width:0; margin:0; }
+  .product-gallery img{ width:100%; aspect-ratio:16/10; object-fit:cover; border:1px solid var(--line); border-radius:6px; background:var(--ink-softer); }
+  .product-gallery figcaption{ margin-top:6px; color:var(--muted); font-size:0.75rem; }
+
   .sub-footer{
     border-top:1px solid var(--line);
     padding:50px clamp(20px,5vw,56px) 60px;
@@ -318,6 +362,12 @@
     .node-list{ position:relative; z-index:3; display:grid; grid-template-columns:repeat(2, 1fr); gap:8px; margin-top:14px; }
     .about{ grid-template-columns:1fr; }
     .features{ grid-template-columns:1fr; }
+    .product-catalog{ grid-template-columns:1fr; }
+    .product-card[open]{ grid-column:auto; }
+    .product-detail{ grid-template-columns:1fr; padding:20px 18px 22px; gap:22px; }
+    .product-card-copy{ padding:18px; }
+    .product-card-top{ flex-direction:column; gap:10px; }
+    .product-price{ align-items:flex-start; flex-direction:row; gap:10px; }
   }
 </style>
 </head>
@@ -336,6 +386,7 @@
       <a href="#rent" data-route="rent">Rent</a>
       <a href="#smm" data-route="smm">SMM</a>
       <a href="#print" data-route="print">Print</a>
+      <a href="#voice" data-route="voice">Voice</a>
     </nav>
   </header>
 
@@ -352,6 +403,7 @@
           <line x1="50" y1="50" x2="10" y2="70" stroke="#FF5FA2"></line>
           <line x1="50" y1="50" x2="66" y2="88" stroke="#34E4D0"></line>
           <line x1="50" y1="50" x2="30" y2="88" stroke="#FFD54A"></line>
+          <line x1="50" y1="50" x2="50" y2="84" stroke="#4CC9F0"></line>
         </svg>
         <div class="k-core">K</div>
 
@@ -359,42 +411,47 @@
           <a href="#event" class="node" style="--x:80%; --y:12%; --node-accent:#FFB347;">
             <span class="dot"></span>
             <span class="name">Event</span>
-            <span class="desc">мероприятия</span>
+            <span class="desc">организация мероприятий</span>
           </a>
           <a href="#records" class="node" style="--x:14%; --y:18%; --node-accent:#8B5CF6;">
             <span class="dot"></span>
             <span class="name">Records</span>
-            <span class="desc">звукозапись</span>
+            <span class="desc">студия звукозаписи</span>
           </a>
           <a href="#rent" class="node" style="--x:92%; --y:38%; --node-accent:#4F9DFF;">
             <span class="dot"></span>
             <span class="name">Rent</span>
-            <span class="desc">аренда</span>
+            <span class="desc">аренда зала и аппаратуры</span>
           </a>
           <a href="#phoenix" class="node" style="--x:6%; --y:42%; --node-accent:#FF4E32;">
             <span class="dot"></span>
             <span class="name">Phoenix</span>
-            <span class="desc">вокал</span>
+            <span class="desc">вокальная студия</span>
           </a>
           <a href="#product" class="node" style="--x:86%; --y:66%; --node-accent:#C6F135;">
             <span class="dot"></span>
             <span class="name">Product</span>
-            <span class="desc">игры</span>
+            <span class="desc">продажа интерактивных игр</span>
           </a>
           <a href="#smm" class="node" style="--x:10%; --y:70%; --node-accent:#FF5FA2;">
             <span class="dot"></span>
             <span class="name">SMM</span>
-            <span class="desc">продвижение</span>
+            <span class="desc">продвижение брендов</span>
           </a>
           <a href="#academy" class="node" style="--x:66%; --y:88%; --node-accent:#34E4D0;">
             <span class="dot"></span>
             <span class="name">Academy</span>
-            <span class="desc">школа ИИ</span>
+            <span class="desc">школа ИИ и ПО</span>
           </a>
           <a href="#print" class="node" style="--x:30%; --y:88%; --node-accent:#FFD54A;">
             <span class="dot"></span>
             <span class="name">Print</span>
-            <span class="desc">полиграфия</span>
+            <span class="desc">дизайн и распечатка</span>
+          </a>
+          <a href="#voice" class="node" style="--x:50%; --y:84%; --node-accent:#4CC9F0;">
+            <span class="dot"></span>
+            <span class="name">Voice</span>
+            <span class="desc">караоке-зал</span>
           </a>
         </div>
       </div>
@@ -402,7 +459,7 @@
       <div class="hero-text">
         <span class="eyebrow">Креативная студия</span>
         <h1 class="wordmark">KENYL</h1>
-        <p class="hero-sub">Мы не помещаемся в одно направление. Восемь команд, одна студия — каждая идея растёт в своё дело.</p>
+        <p class="hero-sub">Мы не помещаемся в одно направление. Девять команд, одна студия — каждая идея растёт в своё дело.</p>
       </div>
 
       
@@ -411,7 +468,7 @@
     <div class="about">
       <h2>Зачем вам KENYL?</h2>
       <div>
-        <p>Запишите песню, подкаст или демо. Научитесь петь. Организуйте концерт, корпоратив или праздник — или просто закажите наших артистов на своё мероприятие. Добавьте интерактив: купите готовые музлото, квизы и викторины для ваших событий — или закажите у нас, и мы сделаем это за вас. Освойте нейросети и нужные программы, чтобы использовать их в работе. Запустите соцсети и продвигайте свой бизнес. Напечатайте афиши, визитки, мерч — что угодно. Снимите зал с оборудованием под своё событие.</p>
+        <p>Запишите песню, подкаст или демо. Научитесь петь или приходите в караоке-зал. Организуйте концерт, корпоратив или праздник — или просто закажите наших артистов на своё мероприятие. Добавьте интерактив: купите готовые музлото, квизы и викторины для ваших событий — или закажите у нас, и мы сделаем это за вас. Освойте нейросети и нужные программы, чтобы использовать их в работе. Запустите соцсети и продвигайте свой бизнес. Напечатайте афиши, визитки, мерч — что угодно. Снимите зал с оборудованием под своё событие.</p>
         <p>Каждая задача — отдельное направление KENYL. Но для вас это одна команда и одно место.</p>
       </div>
     </div>
@@ -421,14 +478,15 @@
         <div class="footer-block">
           <h3>Направления</h3>
           <div class="footer-links">
-            <a href="#event">Kenyl Event — проведение мероприятий</a>
+            <a href="#event">Kenyl Event — организация мероприятий</a>
             <a href="#records">Kenyl Records — студия звукозаписи</a>
-            <a href="#product">Kenyl Product — продукция студии</a>
-            <a href="#phoenix">Kenyl Phoenix — вокальный кружок</a>
-            <a href="#academy">Kenyl Academy — школа ИИ</a>
-            <a href="#rent">Kenyl Rent — аренда зала и оборудования</a>
-            <a href="#smm">Kenyl SMM — продвижение в соцсетях</a>
-            <a href="#print">Kenyl Print — полиграфические услуги</a>
+            <a href="#product">Kenyl Product — продажа интерактивных игр</a>
+            <a href="#phoenix">Kenyl Phoenix — вокальная студия</a>
+            <a href="#academy">Kenyl Academy — школа ИИ и ПО</a>
+            <a href="#rent">Kenyl Rent — аренда зала и аппаратуры</a>
+            <a href="#smm">Kenyl SMM — продвижение брендов</a>
+            <a href="#print">Kenyl Print — дизайн и распечатка</a>
+            <a href="#voice">Kenyl Voice — караоке-зал</a>
           </div>
         </div>
         <div class="footer-block">
@@ -492,16 +550,78 @@
 
   <!-- ================= PRODUCT ================= -->
   <section class="page" id="page-product">
-    <div class="sub-hero">
+    <div class="sub-hero product-hero">
       <span class="sub-eyebrow">Kenyl Product</span>
-      <h1 class="sub-title">Продукция студии</h1>
-      <p class="sub-desc">В продаже интерактивные игры с презентациями: музыкальное лото, квизы, викторины и другие развлечения для праздников, корпоративов, семейных вечеров и мероприятий.</p>
-      <a href="https://api.whatsapp.com/send?phone=79644281993" target="_blank" rel="noopener" class="cta">Заказать игру</a>
+      <h1 class="sub-title">Интерактивные игры</h1>
+      <p class="sub-desc">Готовые игры KENYL для праздников, школ и больших компаний. Выберите игру, посмотрите фото и описание, затем напишите нам для покупки.</p>
     </div>
-    <div class="features">
-      <div class="feature"><span class="tag">Формат</span><h3>Игры с презентацией</h3><p>Музыкальное лото, квизы, викторины — с готовой презентацией для показа.</p></div>
-      <div class="feature"><span class="tag">Применение</span><h3>Для любого события</h3><p>Праздники, корпоративы, семейные вечера и тематические мероприятия.</p></div>
-      <div class="feature"><span class="tag">Доступ</span><h3>Готовые к покупке</h3><p>Игры уже в продаже — не нужно ждать разработки под заказ.</p></div>
+    <div class="product-catalog">
+      <details class="product-card">
+        <summary>
+          <img class="product-cover" src="images/products/wealth-cover.jpg" alt="Обложка игры «Кто хочет стать богачом?»" loading="lazy">
+          <div class="product-card-copy">
+            <div class="product-card-top">
+              <div>
+                <span class="product-label">Интеллектуальная игра</span>
+                <h3>Кто хочет стать богачом?</h3>
+              </div>
+              <div class="product-price"><strong>7 999 ₽</strong><del>12 000 ₽</del></div>
+            </div>
+            <span class="product-expand"><span class="product-expand-open">Описание и фото игры</span><span class="product-expand-close">Свернуть подробности</span><span class="product-expand-icon" aria-hidden="true">+</span></span>
+          </div>
+        </summary>
+        <div class="product-detail">
+          <div>
+            <p class="product-description">Интерактивная викторина для школ, домов культуры, ведущих и организаторов. Ведущий управляет игрой с компьютера, а вопросы и игровая сцена выводятся на проектор или второй экран.</p>
+            <div class="product-facts"><span>15 вопросов</span><span>4 варианта ответа</span><span>Постоянная лицензия</span></div>
+            <ul class="product-options">
+              <li>Подсказки: 50/50, помощь зала и звонок другу.</li>
+              <li>Можно добавить вопросы вручную или из Word.</li>
+              <li>Настраиваются оформление, музыка, таймер и главный приз.</li>
+            </ul>
+            <div class="product-order"><a href="https://api.whatsapp.com/send?phone=79644281993" target="_blank" rel="noopener" class="cta">Купить игру за 7 999 ₽</a></div>
+          </div>
+          <div class="product-gallery">
+            <figure><img src="images/products/wealth-game.jpg" alt="Игровой экран с вопросом и вариантами ответа" loading="lazy"><figcaption>Игровой экран</figcaption></figure>
+            <figure><img src="images/products/wealth-stage.jpg" alt="Вопрос на сцене игры во время раунда" loading="lazy"><figcaption>Вопрос и варианты ответа</figcaption></figure>
+          </div>
+        </div>
+      </details>
+
+      <details class="product-card">
+        <summary>
+          <img class="product-cover" src="images/products/sahaly-cover.jpg" alt="Обложка игры «Сахалыы музлото»" loading="lazy">
+          <div class="product-card-copy">
+            <div class="product-card-top">
+              <div>
+                <span class="product-label">Музыкальное лото</span>
+                <h3>Сахалыы музлото</h3>
+                <span class="product-song-count">108 песен · 36 в каждом из 3 раундов</span>
+              </div>
+              <div class="product-price"><strong>8 999 ₽</strong><del>15 000 ₽</del></div>
+            </div>
+            <span class="product-expand"><span class="product-expand-open">Описание и фото игры</span><span class="product-expand-close">Свернуть подробности</span><span class="product-expand-icon" aria-hidden="true">+</span></span>
+          </div>
+        </summary>
+        <div class="product-detail">
+          <div>
+            <p class="product-description">Музыкальное лото с любимыми якутскими хитами. В каждом из 3 раундов звучит по 36 песен, всего в игре 108 песен. Гости вытягивают бочонок с номером, ведущий включает соответствующую песню, а участники отмечают её в своих карточках.</p>
+            <div class="product-facts"><span>108 песен всего</span><span>36 песен × 3 раунда</span><span>Якутские песни</span><span>Для компаний 100+ гостей</span></div>
+            <ul class="product-options">
+              <li>Танцевальная ловушка добавляет игре движения и смеха.</li>
+              <li>Подходит для семейных вечеров, праздников и больших банкетов.</li>
+              <li>Можно дополнить живыми музыкальными номерами и артистами.</li>
+            </ul>
+            <div class="product-order"><a href="https://api.whatsapp.com/send?phone=79644281993" target="_blank" rel="noopener" class="cta">Купить игру за 8 999 ₽</a></div>
+          </div>
+          <div class="product-gallery">
+            <figure><img src="images/products/sahaly-rules.jpg" alt="Правила трех раундов игры «Сахалыы музлото»" loading="lazy"><figcaption>Три раунда игры</figcaption></figure>
+            <figure><img src="images/products/sahaly-round.jpg" alt="Экран вопроса во время раунда «Сахалыы музлото»" loading="lazy"><figcaption>Игровой экран</figcaption></figure>
+            <figure><img src="images/products/sahaly-event-1.jpg" alt="Гость участвует в игре «Сахалыы музлото» на мероприятии" loading="lazy"><figcaption>Игра на мероприятии</figcaption></figure>
+            <figure><img src="images/products/sahaly-event-2.jpg" alt="Гости отмечают песни в карточках музлото" loading="lazy"><figcaption>Участники отмечают песни</figcaption></figure>
+          </div>
+        </div>
+      </details>
     </div>
     <div class="sub-footer">
       <a href="#home" class="back-link">← Вернуться в KENYL</a>
@@ -622,6 +742,23 @@
     </div>
   </section>
 
+  <!-- ================= VOICE ================= -->
+  <section class="page" id="page-voice">
+    <div class="sub-hero">
+      <span class="sub-eyebrow">Kenyl Voice</span>
+      <h1 class="sub-title">Караоке-зал</h1>
+      <p class="sub-desc">Караоке-зал KENYL для встреч с друзьями, семейных вечеров и праздников. Узнайте условия и свободное время, написав нам.</p>
+      <a href="https://api.whatsapp.com/send?phone=79644281993" target="_blank" rel="noopener" class="cta">Забронировать караоке-зал</a>
+    </div>
+    <div class="sub-footer">
+      <a href="#home" class="back-link">← Вернуться в KENYL</a>
+      <div class="sibling-links">
+        <a href="#event">Event</a><a href="#records">Records</a><a href="#product">Product</a>
+        <a href="#phoenix">Phoenix</a><a href="#academy">Academy</a><a href="#rent">Rent</a><a href="#smm">SMM</a><a href="#print">Print</a>
+      </div>
+    </div>
+  </section>
+
 <script>
   const ACCENTS = {
     home: '#FF3D8A',
@@ -632,7 +769,8 @@
     academy: '#34E4D0',
     rent: '#4F9DFF',
     smm: '#FF5FA2',
-    print: '#FFD54A'
+    print: '#FFD54A',
+    voice: '#4CC9F0'
   };
   const ROUTES = Object.keys(ACCENTS);
   const veil = document.getElementById('veil');
